@@ -1,0 +1,8 @@
+# Travis config
+language: ruby
+sudo: false # only for faster builds
+rvm:
+  - 2.2.2
+script:
+  - bin/rake db:schema:load RAILS_ENV=test
+  - bin/rake test
