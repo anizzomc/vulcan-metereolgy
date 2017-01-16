@@ -8,23 +8,23 @@ module Geometry
 
 
     def area
-      (a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)) / 2
+      ((a.x * (b.y - c.y) + b.x * (c.y - a.y) + c.x * (a.y - b.y)) / 2.0).abs
     end
 
-    def contained?(point)
+    def contains?(point)
       ab = Segment.new(a, b).length
       bc = Segment.new(b, c).length
-      ca = Segment.new(c, a).length
+      ac = Segment.new(c, a).length
       ad = Segment.new(a, point).length
       bd = Segment.new(b, point).length
       cd = Segment.new(c, point).length
 
       (ab > ad &&
-        ab > db &&
-        cb > cd &&
-        cb > db &&
+        ab > bd &&
+        bc > cd &&
+        bc > bd &&
         ac > ad &&
-        ac > dc)
+        ac > cd)
     end
 
     def perimeter
