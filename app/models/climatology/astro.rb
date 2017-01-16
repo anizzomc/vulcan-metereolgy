@@ -13,8 +13,8 @@ module Climatology
 
     def position(t)
       Geometry::Point.new(
-          radius*Math.cos(to_rad(theta+t*velocity)).round(5),
-          radius*Math.sin(to_rad(theta+t*velocity)).round(5))
+          radius*Math.cos(to_rad(theta+t*velocity)).round(4),
+          radius*Math.sin(to_rad(theta+t*velocity)).round(4))
     end
 
     private
