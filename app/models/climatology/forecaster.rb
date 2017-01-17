@@ -32,16 +32,24 @@ module Climatology
     def forecast(t)
       if system.planets_aligned?(t)
         if system.sun_aligned?(t)
-          DRY
+          Forecast.new(DRY, -1)
         else
-          OPTIMUM
+          Forecast.new(OPTIMUM, 0)
         end
       else
         if system.sun_contained?(t)
-          RAIN
+          Forecast.new(RAIN, rain_incidence(t))
         else
-          UNKNOWN
+          Forecast.new(UNKNOWN, nil)
         end
+      end
+    end
+
+    class Forecast
+      attr_reader :forecast, :rain_incidence
+      def initialize(forecast, rain_incidence)
+        @forecast = forecast
+        @rain_incidence = rain_incidence
       end
     end
   end
