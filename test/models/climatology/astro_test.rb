@@ -19,7 +19,7 @@ module Climatology
 
       # Orbital Description
       assert_equal(planet.position(0), Geometry::Point.new(100, 0))
-      assert_equal(planet.position(45), Geometry::Point.new(70.71, 70.71))
+      assert_equal(planet.position(45), Geometry::Point.new(70.0, 70.0))
       assert_equal(planet.position(90), Geometry::Point.new(0, 100))
       assert_equal(planet.position(180), Geometry::Point.new(-100, 0))
       assert_equal(planet.position(360), Geometry::Point.new(100, 0))

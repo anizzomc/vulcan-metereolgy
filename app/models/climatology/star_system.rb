@@ -2,7 +2,7 @@ module Climatology
   class StarSystem
     attr_reader :star, :planets
 
-    DELTA = 0.01
+    DELTA = 1000
 
     def initialize(star, *planets)
       @star = star
