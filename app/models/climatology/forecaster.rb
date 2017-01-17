@@ -2,12 +2,6 @@ module Climatology
   class Forecaster
     attr_reader :system
 
-    DRY = :dry
-    RAIN = :rain
-    OPTIMUM = :optimum
-    UNKNOWN = :unknown
-
-
     def initialize(system)
       @system = system
     end
@@ -32,15 +26,15 @@ module Climatology
     def forecast(t)
       if system.planets_aligned?(t)
         if system.sun_aligned?(t)
-          Forecast.new(DRY, -1)
+          Forecast.new(:dry, -1)
         else
-          Forecast.new(OPTIMUM, 0)
+          Forecast.new(:optimum, 0)
         end
       else
         if system.sun_contained?(t)
-          Forecast.new(RAIN, rain_incidence(t))
+          Forecast.new(:rain, rain_incidence(t))
         else
-          Forecast.new(UNKNOWN, nil)
+          Forecast.new(:unknown, nil)
         end
       end
     end
