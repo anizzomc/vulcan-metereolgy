@@ -6,8 +6,7 @@ class ForecastPresenter < SimplePresenter
         clima: readable_forecast
     }
 
-    ret.merge(incidence: rain_incidence) if rain?
-
+    ret = ret.merge(incidence: rain_incidence) if rain?
     ret
   end
 
