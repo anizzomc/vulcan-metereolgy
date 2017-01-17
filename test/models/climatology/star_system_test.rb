@@ -1,4 +1,5 @@
 module Climatology
+
   class StarSystemTest < ActiveSupport::TestCase
     def setup
       @system = StarSystemFactory.build_system

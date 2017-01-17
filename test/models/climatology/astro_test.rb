@@ -2,6 +2,7 @@ require 'test_helper'
 
 module Climatology
 
+
   class AstroTest < ActiveSupport::TestCase
 
     test "Initial Position Sun" do
