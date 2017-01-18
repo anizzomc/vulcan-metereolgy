@@ -4,7 +4,8 @@ class ClimaController < ApplicationController
     if is_rest
       handle_as_rest
     else
-
+      @forecasts = Climatology::WeatherForecast.all
+      @statictics = Climatology::WeatherStatictics.new(@forecasts)
     end
   end
 
@@ -25,6 +26,8 @@ class ClimaController < ApplicationController
   def rest_param(method)
     params[method]
   end
+
+
 
 
 end
