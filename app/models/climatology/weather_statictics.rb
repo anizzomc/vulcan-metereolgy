@@ -14,8 +14,8 @@ module Climatology
       stats = Hash.new(0)
 
       data.each do |entry|
-        if entry.forecast != prev_state
-          prev_state = entry.forecast
+        if entry.forecast.to_sym != prev_state
+          prev_state = entry.forecast.to_sym
           stats[prev_state] += 1
         end
 
