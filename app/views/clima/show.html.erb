@@ -1,0 +1,52 @@
+<head>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+      google.charts.load("current", {packages:["corechart"]});
+      google.charts.setOnLoadCallback(drawChart);
+      function drawChart() {
+          var data = google.visualization.arrayToDataTable
+          ([['X', 'Y'],
+              <% @system.planets.each do |planet| %>
+              [<%= planet.position.x %>, <%= planet.position.y %>],
+              <% end %>
+              [<%= @system.planets.first.position.x %>, <%= @system.planets.first.position.y %>],
+          ]);
+
+          var options = {
+              legend: 'none',
+              hAxis: { minValue: -2000, maxValue: 2000 },
+              wAxis: { minValue: -2000, maxValue: 2000 },
+              pointSize: 20,
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('chart_div'));
+          chart.draw(data, options);
+      }
+  </script>
+  <title>Pronóstico para un día en Particular</title>
+</head>
+<body>
+<h1>Pronóstico</h1>
+<h2>Posición Planetaria</h2>
+<div id="chart_div" style="width: 900px; height: 500px;"></div>
+<h2>Detalles</h2>
+<table border="1">
+  <tr>
+    <th>Día</th>
+    <th>Pronóstico</th>
+    <th>Incidencia de Lluvia</th>
+    <th>Area planetarea</th>
+    <th>Sol Alineado</th>
+    <th>Sol Contenido</th>
+  </tr>
+  <tr>
+    <th><%= @forecast.day %></th>
+    <th><%= @forecast.readable_forecast %></th>
+    <th><%= @forecast.rain_incidence %></th>
+    <th><%= @system.planets_area %></th>
+    <th><%= @system.sun_aligned? %></th>
+    <th><%= @system.sun_contained? %></th>
+  </tr>
+</table>
+</body>
+</html>
