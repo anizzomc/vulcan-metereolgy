@@ -10,7 +10,7 @@ module Climatology
       t = 0
       assert @system.planets_aligned?(t)
       assert @system.sun_aligned?(t)
-      assert !@system.sun_contained?(t)
+      assert !@system.sun_contained?(t), "Sun shouldn't be contained"
     end
 
     test "After 45" do

@@ -15,13 +15,15 @@ namespace :climatology do
       record.save
     end
 
-
-
+    puts "[*] Done"
   end
 
   desc "Clear the existing forecast"
   task clear: :environment do
-    Climatology::WeatherForecast.delete_all
+    records = Climatology::WeatherForecast.all
+    puts "[*] Deleting #{records.count} recods"
+    records.delete_all
+    puts "[*] Done"
   end
 
 end

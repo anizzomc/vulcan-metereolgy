@@ -8,7 +8,7 @@
       function drawChart() {
           var data = google.visualization.arrayToDataTable([
               ['Día', 'Incidencia'],
-              <% (@forecasts.select { |f| f.rain_incidence.present? }).each do |forecast| %>
+              <% (@forecasts.slice(0, 365).select { |f| f.rain_incidence.present? }).each do |forecast| %>
               [<%= forecast.day %>, <%= forecast.rain_incidence %>],
               <% end %>
           ]);

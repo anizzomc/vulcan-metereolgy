@@ -18,7 +18,7 @@ module Climatology
     end
 
     def sun_contained?(t)
-      build_triangle(t).contains?(star.position(t))
+      !planets_aligned?(t) && build_triangle(t).contains?(star.position(t))
     end
 
     def planets_area(t)
