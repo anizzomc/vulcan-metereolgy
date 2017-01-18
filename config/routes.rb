@@ -7,6 +7,7 @@ Rails.application.routes.draw do
 
   # Clima REST
   get 'clima' => 'clima#index'
+  get 'clima/:day' => 'clima#show'
 
   # Example of regular route:
   #   get 'products/:id' => 'catalog#view'

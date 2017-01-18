@@ -2,7 +2,7 @@ module Climatology
   class StarSystem
     attr_reader :star, :planets
 
-    DELTA = 1000
+    DELTA = 35000*1.1
 
     def initialize(star, *planets)
       @star = star
@@ -14,7 +14,7 @@ module Climatology
     end
 
     def sun_aligned?(t)
-      Geometry::Triangle.new(planets[0].position(t), planets[1].position(t), planets[2].position(t)).area < DELTA
+      Geometry::Triangle.new(star.position(t), planets[0].position(t), planets[1].position(t)).area < DELTA/2
     end
 
     def sun_contained?(t)

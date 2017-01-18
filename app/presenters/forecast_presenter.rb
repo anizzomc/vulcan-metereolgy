@@ -14,7 +14,6 @@ class ForecastPresenter < SimplePresenter
     forecast.to_sym == :rain
   end
 
-  private
   def readable_forecast
     case forecast.to_sym
       when :rain

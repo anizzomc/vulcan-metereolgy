@@ -1,1 +1,68 @@
-<h><%=@statictics.stats.to_s %></h>
+<html>
+  <title>Vulcan Metereology</title>
+  <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
+  <script type="text/javascript">
+      google.charts.load('current', {'packages':['corechart']});
+      google.charts.setOnLoadCallback(drawChart);
+
+      function drawChart() {
+          var data = google.visualization.arrayToDataTable([
+              ['Día', 'Incidencia'],
+              <% (@forecasts.select { |f| f.rain_incidence.present? }).each do |forecast| %>
+              [<%= forecast.day %>, <%= forecast.rain_incidence %>],
+              <% end %>
+          ]);
+
+          var options = {
+              title: 'Incidencia de Lluvia',
+              curveType: 'function',
+              legend: { position: 'bottom' }
+          };
+
+          var chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
+
+          chart.draw(data, options);
+      }
+  </script>
+<body>
+  <h1>Estadísticas para los próximos 10 años</h1>
+  <table border="1">
+    <tr>
+      <th>Perídos de Lluvia</th>
+      <th>Períodos de Sequía</th>
+      <th>Períodos Óptimos</th>
+      <th>Períodos Desconcidos</th>
+      <th>Próximo día de mayor lluvia</th>
+      <th>Máxima incidencia de lluvia</th>
+    </tr>
+    <tr>
+      <th><%= @statictics.stats[:rain] %></th>
+      <th><%= @statictics.stats[:dry] %></th>
+      <th><%= @statictics.stats[:optimum] %></th>
+      <th><%= @statictics.stats[:unknown] %></th>
+      <th><%= @statictics.stats[:max_rain_day] %></th>
+      <th><%= @statictics.stats[:max_rain] %></th>
+    </tr>
+  </table>
+  <hr/>
+  <div id="curve_chart" style="width: 900px; height: 500px"></div>
+  <h2>Tabla de Pronósticos</h2>
+  <table border="1">
+    <tr>
+      <th>Día</th>
+      <th>Pronóstico</th>
+      <th>Incidencia de Lluvia</th>
+      <th>Detalles</th>
+    </tr>
+    <% @forecasts.each do |forecast| %>
+      <tr>
+        <td><%= forecast.day %></td>
+        <td><%= forecast.readable_forecast %></td>
+        <td><%= forecast.rain_incidence if forecast.rain? %></td>
+        <td><%= link_to "Detalles", "#{clima_path}/#{forecast.day}" %></td>
+      </tr>
+    <% end %>
+  </table>
+
+</body>
+</html>

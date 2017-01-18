@@ -9,6 +9,27 @@ class ClimaController < ApplicationController
     end
   end
 
+  def show
+    day = params[:day].to_i
+    system = Climatology::StarSystemFactory.build_system
+    forecast = Climatology::WeatherForecast.find_by(day: day)
+    unless forecast
+      forecaster = Climatology::Forecaster.new(system).forecast(day)
+      forecast = Climatology::WeatherForecast.new(
+          day: day,
+          forecast: forecaster.forecast,
+          rain_incidence: forecast.rain_incidence
+      )
+      # forecast.save # Don't save in order to not alter the stats
+    end
+
+
+    @system = Climatology::TimedSystem.new(Climatology::StarSystemFactory.build_system, params[:day].to_i)
+    @forecast = ForecastPresenter.new(forecast)
+
+  end
+
+
   private
   def dia(value)
     render json: ForecastPresenter.new(Climatology::WeatherForecast.find_by(day: value))

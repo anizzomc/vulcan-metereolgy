@@ -1,7 +1,7 @@
 class WelcomeController < ApplicationController
 
   def index
-    render plain: "Eureka! #{Dummy.first}"
+    render inline: "Go to <a href='#{clima_path}'>Clima</a>"
   end
 
 end
